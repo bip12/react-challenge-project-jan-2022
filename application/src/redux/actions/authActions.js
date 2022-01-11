@@ -1,7 +1,12 @@
 import { LOGIN, LOGOUT } from './types';
 import { SERVER_IP } from '../../private'
+import { fakeAuth } from '../../router/appRouter';
 
 const finishLogin = (email, token) => {
+    if(token==='12345luggage') // fake  
+    {
+        fakeAuth.signedIn = true;       
+    }
     return {
         type: LOGIN,
         payload: {
@@ -32,6 +37,7 @@ export const loginUser = (email, password) => {
 }
 
 export const logoutUser = () => {
+    fakeAuth.signedIn = false;
     return {
         type: LOGOUT,
         payload: null,
