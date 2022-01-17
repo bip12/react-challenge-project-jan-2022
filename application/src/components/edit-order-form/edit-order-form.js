@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Template } from '../../components';
+import { Template } from '..';
 import { SERVER_IP } from '../../private';
-import './orderForm.css';
+import '../order-form/orderForm.css';
+import { useParams } from 'react-router-dom';
 
-const ADD_ORDER_URL = `${SERVER_IP}/api/add-order`;
+const EDIT_ORDER_URL = `${SERVER_IP}/api/edit-order`;
 
-export default function OrderForm() {
+export default function EditForm() {
+    const params = useParams();
     const [orderItem, setOrderItem] = useState("");
     const [quantity, setQuantity] = useState("1");
 
@@ -17,9 +19,10 @@ export default function OrderForm() {
 
     const submitOrder = () => {
         if (orderItem === "") return;
-        fetch(ADD_ORDER_URL, {
+        fetch(EDIT_ORDER_URL, {
             method: 'POST',
             body: JSON.stringify({
+                id: params.id,
                 order_item: orderItem,
                 quantity,
                 ordered_by: auth.email || 'Unknown!',
@@ -43,7 +46,7 @@ export default function OrderForm() {
                         onChange={(event) => menuItemChosen(event)}
                         className="menu-select"
                     >
-                        <option value="" defaultValue disabled hidden>Lunch menu</option>
+                        <option value="" defaultValue disabled hidden>{orderItem}</option>
                         <option value="Soup of the Day">Soup of the Day</option>
                         <option value="Linguini With White Wine Sauce">Linguini With White Wine Sauce</option>
                         <option value="Eggplant and Mushroom Panini">Eggplant and Mushroom Panini</option>
@@ -58,7 +61,7 @@ export default function OrderForm() {
                         <option value="5">5</option>
                         <option value="6">6</option>
                     </select>
-                    <button type="button" className="order-btn" onClick={() => submitOrder()}>Order It!</button>
+                    <button type="button" className="order-btn" onClick={() => submitOrder()}>Edit Order</button>
                 </form>
             </div>
         </Template>

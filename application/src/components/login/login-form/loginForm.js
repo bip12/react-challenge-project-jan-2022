@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { loginUser } from '../../../redux/actions/authActions'
+import { Link } from "react-router-dom";
+
 
 const mapActionsToProps = dispatch => ({
   commenceLogin(email, password) {
@@ -37,6 +39,13 @@ class LoginForm extends Component {
         </div>
         <div className="d-flex justify-content-center">
             <button onClick={e => this.login(e)} type="submit" className="btn btn-primary">Login</button>
+        </div>
+        <div className="d-flex justify-content-center">
+          <Link to={"/register"} className="mt-2">  
+                <div>
+                    <button type="submit" className="btn btn-primary">Register</button>
+                </div>
+          </Link>
         </div>
       </form>
     );
