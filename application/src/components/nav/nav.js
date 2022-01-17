@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./nav.css";
-
+import { logoutUser } from "../../redux/actions/authActions";
+  
 const Nav = (props) => {
     return (
         <div className="nav-strip">
@@ -15,7 +16,7 @@ const Nav = (props) => {
                     <label className="nav-label">View Orders</label>
                 </div>
             </Link>
-            <Link to={"/login"} className="nav-link">
+            <Link to={"/login"} className="nav-link" onClick={() => logoutUser()}>  
                 <div className="nav-link-style">
                     <label className="nav-label">Log Out</label>
                 </div>
